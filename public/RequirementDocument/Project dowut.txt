@@ -1,0 +1,5 @@
+
+->when user enter in the system and thai have permission of hr in past and current he/her
+ is emloyee then they can all the past role is see
+ sol -->that time thair role status is 2
+  then and then that all permission is applied.

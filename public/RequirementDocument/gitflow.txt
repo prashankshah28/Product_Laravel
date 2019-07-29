@@ -1,0 +1,11 @@
+git status
+git checkout development
+
+
+git add filepath/*
+git status
+git commit -m "message"
+
+git push
+
+git pull origin developement

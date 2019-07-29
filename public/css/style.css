@@ -1,0 +1,30 @@
+.btn-down{
+    margin-top: 23px;
+}
+
+.hederSize{
+    font-size:27px;
+}
+
+.textCenter{
+    text-align: center;
+}
+
+.alert-message-color{
+    color:red;  
+}
+
+.dropdown-menu .edit-status{
+    cursor: pointer;
+}
+
+.dataTable .no-filter.sorting:after,
+.dataTable .no-filter.sorting_desc::after,
+.dataTable .no-filter.sorting_asc::after{
+    content: '';
+    display: none;
+} 
+
+.dashbord-contain{
+    display:list-item !important;
+}

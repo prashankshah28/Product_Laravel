@@ -1,0 +1,64 @@
+Genral
+->all the list page in Add Button has been remove when thai have not permission.
+->in resume upload excle file upload..[PDF,DOC]
+
+
+Vishal
+->if admin inactive employee then that use is also login 
+->when agency add thair credancial(Password Reset Link) send to thair email id 
+  but whene thair reset link is reset that password direct open dashbord and that all data is not display because all the data
+  is in session so first log out and then login.
+->consultant have add candidate on job which thay have allocated.
+->consultant profile not display bcz in user table all path of photo is store.not name.
+->when consultant side add any candidate that time add the candidate but by which consultant refere that was not display.
+
+Urvin
+->agency add time agency role add 4 number id static not dynamic.
+  sol -->(insertAgencyUserData()) GET ALl AGENCY OR GET USER ID WHERE NAME="AGENCY"
+
+
+Harshil
+->if any candidate create job then they job only display not all expect ADMin
+
+Prahank
+->in candidate list candidate applied on which job that is not specify
+->if candidate detail view permission candidate cv status and intrview then and then dipaly otherwise not[ADmin,HR]
+->if i upload in ppt in candidate resume that time error show((Symfony \ Component \ HttpFoundation \ File \ Exception \ IniSizeFileException
+The file "Application Tracking system (Recruitment System).pptx" exceeds your upload_max_filesize ini directive (limit is 2048 KiB).)
+->if i am add candidate from the employee role that time my caniddate not add in refere((ERROR Show->Symfony \ Component \ HttpFoundation \ File \ Exception \ IniSizeFileException
+The file "Application Tracking system (Recruitment System).pptx" exceeds your upload_max_filesize ini directive (limit is 2048 KiB). )
+ list but add in canidate list.
+
+
+
+Pinal
+->if candidate is inactive then candidate not display in intrview Schdule.
+->if candidate selected then that candidate is not display in intrview schdule only display open,inprogress status.
+->if intview not scdule of candidate then that candidate status is not change.
+  =[Defult Open]
+  =after schdule intrview change that status otherwise defult.
+->if candidate applied on one  job but intrview scdule time that job was chageable.
+->when add feedback that time show error(Skill id can't be null).
+->In The secounf round of hr feedback time candidate skill is not display.
+->and feeback is that recrutment each team member have thair on feedback thai only fill not other.
+->in feeback page cancle button not working.
+->any round feedback status is not calculate that candidate is selected or not.
+->interview listing page rating not display.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
