@@ -12,7 +12,6 @@
     <div class="row form-group">
         <div class="col-md-12">
             <div class="form-group">
-                {{ Form::open(array('url' => 'product/','method'=>'post'))}}
                 {{Form::select('product[category_id]',array('-1' => 'Please Select..')+$category,null,['class'=>'form-control','id' => 'category' ,'data-placeholder' => 'category','onchange' => 'fetchData()'])}}
               </div>
             </div>
@@ -20,25 +19,44 @@
     </div>
 </div>
 <div class="fetchproductData">
-
+    @include('Product/ajaxfetchproduct')
 </div>
-
-
-<!-- script listead -->
+@endsection
+<!-- Links -->
+@section('links')
+<link rel="stylesheet" href="{{asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+@endsection
+@section('inline_scripts')
 <script>
     function fetchData(){
         var select = document.getElementById('category').value;
-        $.ajax({
-        url: "{{ url('product/fetchData') }}",
-        method: "POST",
-        data: {
-            product_id : select,
-            _token: "{{ csrf_token() }}"
-        },
-        success: function(data) {
-            $(".fetchFilter").html(data);
+        if(select == -1){
+            document.getElementById("btnSubmit").disabled = true;
         }
-    });
+        else{
+            $.ajax({
+            url: "{{ url('product/fetchData') }}",
+            method: "POST",
+            data: {
+                product_id : select,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(data) {
+                $(".fetchproductData").html(data);
+            }
+        });   
     }
+}
+fetchData();
+</script>
+<script>
+    function setCategory(){
+        var select = document.getElementById('category').value;
+        if(select == -1){
+            document.getElementById("btnSubmit").disabled = true;
+        }
+        document.getElementById("product_category").value = select;
+    }
+setCategory();
 </script>
 @endsection

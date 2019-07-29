@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Categoty;
 use App\ProductInformation;
+use App\Product;
+use Illuminate\Validation\Validator;
 
 class ProductController extends Controller
 {
@@ -17,17 +19,13 @@ class ProductController extends Controller
     public function fetchdata(Request $request){
         if ($request->ajax()) {             
             if ($request->product_id != '' ) {
-                $product_data =ProductInformation::getDataFilter($request->product_id);
+                $product_data =Product::getDataFilter($request->product_id);
             } 
             else{
-//                $result = ProductInformation::getallCandidateData();
+                $product_data = "No Data Found Please Insert";
             }
-        } 
-        else {
-            $result = Candidate::getallCandidateData();
-        } 
-    return view('backend/Candidate.DisplayFilterData')->with('candidates',$result)->render();
-        
+            return view('Product/ajaxfetchproduct')->with('product_dataFetch',$product_data)->render();
+        }        
     }
     /**
      * Display a listing of the Category.
@@ -67,9 +65,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-        dd("1");
+    {   
+    
+        $product_store = Product::add($request['product']);
+        return redirect('/');
     }
 
     /**
