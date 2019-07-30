@@ -33,9 +33,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
     */
 
-    public function category(){     
+    public function category(){
         $category = Categoty::pluck('name','id')->toArray();
-        return view('Product/index')->with('category', $category);
+        $category_id = 'null';
+        return view('Product/index')->with(compact('category','category_id'));
     }
 
     /**
@@ -66,9 +67,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {   
-    
-        $product_store = Product::add($request['product']);
-        return redirect('/');
+       // $category_id = $request->product['category_id'];
+        $product_store = Product::add($request['product']);  
+        return redirect('/')->with('flash_message_success', 'Product Added SuccessFully');
     }
 
     /**
@@ -79,7 +80,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product_Edit = ProductInformation::show($id);
+        $category_id = $product_Edit[0]['product']['category_id'];
+        $category = Categoty::pluck('name','id')->toArray();
+        return view('Product/index')->with(compact('product_Edit','category','category_id'));
     }
 
     /**
@@ -90,7 +94,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -103,6 +107,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        dd($id);
     }
 
     /**

@@ -14,4 +14,12 @@ class ProductInformation extends Model
         return $this->belongsTo('App\Product');
     }
     //get all data from filter
+    public static function show($id){
+        $product_show_data = ProductInformation::select()
+        ->with('product')
+        ->where('id', $id)
+        ->get()
+        ->toArray();
+        return $product_show_data;
+    }
 }
