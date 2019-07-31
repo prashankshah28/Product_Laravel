@@ -34,5 +34,10 @@ class Product extends Model
         return true;
         
     }
+    public static function update_product($data,$id){
+        $product_update_data = Product::where('id', $id)->update($data['product']);
+        $product_update_data = ProductInformation::where('product_id', $id)->update($data['productinformation']);
+        return true;
+    }
 
 }

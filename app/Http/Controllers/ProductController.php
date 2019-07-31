@@ -68,7 +68,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {   
        // $category_id = $request->product['category_id'];
-        $product_store = Product::add($request['product']);  
+        $product_store = Product::add($request['product']); 
         return redirect('/')->with('flash_message_success', 'Product Added SuccessFully');
     }
 
@@ -82,6 +82,8 @@ class ProductController extends Controller
     {
         $product_Edit = ProductInformation::show($id);
         $category_id = $product_Edit[0]['product']['category_id'];
+        $batch_date = $product_Edit[0]['batch_no'];
+        $product_Edit[0]['batch_no'] = date('d-m-Y', strtotime($batch_date)); 
         $category = Categoty::pluck('name','id')->toArray();
         return view('Product/index')->with(compact('product_Edit','category','category_id'));
     }
@@ -106,8 +108,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        dd($id);
+        $product_Data = $request->all();
+        $batch_date = $product_Data['productinformation']['batch_no'];
+        $product_Data['productinformation']['batch_no'] = date('Y-m-d', strtotime($batch_date));
+        $product_Edit_Data = Product::update_product($product_Data,$id);
+        return redirect('/')->with('flash_message_success', 'Product Updated SuccessFully');
     }
 
     /**

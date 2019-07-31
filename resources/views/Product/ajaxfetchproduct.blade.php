@@ -39,59 +39,65 @@
     </div>
       {{ Form::close() }}
 </div>
-<section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Product Listing </h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="product_data" class="table table-bordered table-hover">
-                <thead>
-                  <tr>
-                    <th>Product Name</th>
-                    <th>Product Quantity</th>
-                    <th>Price</th>
-                    <th>Manufacture City</th>
-                    <th>Pincode</th>
-                    <th>Gst</th>
-                    <th>Mrp</th>
-                    <th>Batch No</th>
-                    <th>Weight</th>
-                    <th>Option</th>
-                  </tr>
-              </thead>
-              <tbody>
-                @if(isset($product_dataFetch))
-                @foreach($product_dataFetch as $product)
-                <tr>
-                  <td>{{ $product['name'] ? $product['name'] : 'Pending'  }}</td>
-                  <td>{{ $product['quantity'] ? $product['quantity'] : 'Pending'  }}</td>
-                  <td>{{ $product['productinformation']['price'] ? $product['productinformation']['price'] : 'Pending'  }}</td>
-                  <td>{{ $product['productinformation']['manucity']? $product['productinformation']['manucity']: 'Pending'  }}</td>
-                  <td>{{ $product['productinformation']['pincode']? $product['productinformation']['pincode']: 'Pending'  }}</td>
-                  <td>{{ $product['productinformation']['gst']? $product['productinformation']['gst']: 'Pending'  }}</td>
-                  <td>{{ $product['productinformation']['mrp']? $product['productinformation']['mrp']: 'Pending'  }}</td>
-                  <td>{{ $product['productinformation']['batch_no']? $product['productinformation']['batch_no'] : 'Pending' }}</td>
-                  <td>{{ $product['productinformation']['weight']? $product['productinformation']['weight'] : 'Pending'  }}</td>
-                  <td><a class="btn btn-small btn-info" href="{{ URL::to('product/' . $product['productinformation']['id']) }}">Edit</a></td>
-                </tr>
-                @endforeach
-                @endif
-              </tbody>
+<div class="box-body">
+  <div class="box container-fluid box-primary">
+    <div class="row form-group">
+      <section class="content">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="box">
+                  <div class="box-header">
+                    <h3 class="box-title">Product Listing </h3>
+                  </div>
+                  <!-- /.box-header -->
+                  <div class="box-body">
+                    <table id="product_data" class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th>Product Name</th>
+                          <th>Product Quantity</th>
+                          <th>Price</th>
+                          <th>Manufacture City</th>
+                          <th>Pincode</th>
+                          <th>Gst</th>
+                          <th>Mrp</th>
+                          <th>Batch No</th>
+                          <th>Weight</th>
+                          <th>Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      @if(isset($product_dataFetch))
+                      @foreach($product_dataFetch as $product)
+                      <tr>
+                        <td>{{ $product['name'] ? $product['name'] : 'Pending'  }}</td>
+                        <td>{{ $product['quantity'] ? $product['quantity'] : 'Pending'  }}</td>
+                        <td>{{ $product['productinformation']['price'] ? $product['productinformation']['price'] : 'Pending'  }}</td>
+                        <td>{{ $product['productinformation']['manucity']? $product['productinformation']['manucity']: 'Pending'  }}</td>
+                        <td>{{ $product['productinformation']['pincode']? $product['productinformation']['pincode']: 'Pending'  }}</td>
+                        <td>{{ $product['productinformation']['gst']? $product['productinformation']['gst']: 'Pending'  }}</td>
+                        <td>{{ $product['productinformation']['mrp']? $product['productinformation']['mrp']: 'Pending'  }}</td>
+                        <td>{{ $product['productinformation']['batch_no']? $product['productinformation']['batch_no'] : 'Pending' }}</td>
+                        <td>{{ $product['productinformation']['weight']? $product['productinformation']['weight'] : 'Pending'  }}</td>
+                        <td><a class="btn btn-small btn-info" href="{{ URL::to('product/' . $product['productinformation']['id']) }}">Edit</a></td>
+                      </tr>
+                      @endforeach
+                      @endif
+                    </tbody>
 
-              
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-</section>
+                    
+                  <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <!-- /.box -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+      </section>
+    </div>
+  </div>
+</div> 
 <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <script>

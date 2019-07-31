@@ -23,24 +23,30 @@
             </div>
         </div>
     <div class="row form-group">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-group">
-
+                {{Form::select('product[category_id]',array('-1' => 'Please Select..')+$category,$category_id,['class'=>'form-control','id' => 'category' ,'data-placeholder' => 'category','onchange' => 'fetchData()'])}}
+              </div>
+              <div class="form-group">
                 {{Form::select('product[category_id]',array('-1' => 'Please Select..')+$category,$category_id,['class'=>'form-control','id' => 'category' ,'data-placeholder' => 'category','onchange' => 'fetchData()'])}}
               </div>
             </div>
-        </div> 
+        </div>
+        <div class="col-md-6">
+            
+        </div>
     </div>
+
 </div>
 @if(isset($product_Edit))
-
-{{ Form::open(array($product_Edit[0]['id'],'route' => array('product.update', $product_Edit[0]['id']), 'method' => 'PUT')) }}
+{{ Form::open(array($product_Edit[0]['product']['id'],'route' => array('product.update', $product_Edit[0]['product']['id']), 'method' => 'PUT')) }}
+@csrf
 <div class="box-body">
     <div class="box container-fluid box-primary">
 
         <div class="row">
             <div class="col-md-10">
-                <h4>Product Edit</h4>
+                <h4>Product Edit [{{$product_Edit[0]['product']['category']['name']}}]</h4>
             </div>
         </div>
     <div class="row form-group">
@@ -68,7 +74,7 @@
             <div class="form-group">
             {{ Form::label('Price', 'Product Price') }}
             {{ Form::label('s', '*',['style'=>'color:red']) }}
-            {{ Form::number('product[price]',$product_Edit[0]['price'] ? $product_Edit[0]['product']['quantity'] : null, ['class' => 'form-control product_quantity','id' => 'product_quantity','placeholder'=>'Product Quantity'])}}
+            {{ Form::number('productinformation[price]',$product_Edit[0]['price'] ? $product_Edit[0]['price'] : null, ['class' => 'form-control product_quantity','id' => 'product_quantity','placeholder'=>'Product Price'])}}
             </div>
         </div> 
  
@@ -79,21 +85,21 @@
             <div class="form-group">
                 {{ Form::label('Manufacture City', 'Manufacture City') }}
                 {{ Form::label('s', '*',['style'=>'color:red']) }}
-                {{ Form::text('product[manucity]',$product_Edit[0]['manucity'] ? $product_Edit[0]['manucity'] : null , ['class' => 'form-control manucity','id' => 'product_name','placeholder'=>'Manufacture City'])}}
+                {{ Form::text('productinformation[manucity]',$product_Edit[0]['manucity'] ? $product_Edit[0]['manucity'] : null , ['class' => 'form-control manucity','id' => 'product_name','placeholder'=>'Manufacture City'])}}
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
             {{ Form::label('Pincode', 'Pincode') }}
             {{ Form::label('s', '*',['style'=>'color:red']) }}
-            {{ Form::number('product[pincode]',$product_Edit[0]['pincode'] ? $product_Edit[0]['pincode'] : null, ['class' => 'form-control pincode','id' => 'product_quantity','placeholder'=>'Pincode'])}}
+            {{ Form::number('productinformation[pincode]',$product_Edit[0]['pincode'] ? $product_Edit[0]['pincode'] : null, ['class' => 'form-control pincode','id' => 'product_quantity','placeholder'=>'Pincode'])}}
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
             {{ Form::label('Gst', 'Gst') }}
             {{ Form::label('s', '*',['style'=>'color:red']) }}
-            {{ Form::number('product[gst]',$product_Edit[0]['gst'] ? $product_Edit[0]['gst'] : null, ['class' => 'form-control gst','id' => 'product_quantity','placeholder'=>'Gst'])}}
+            {{ Form::number('productinformation[gst]',$product_Edit[0]['gst'] ? $product_Edit[0]['gst'] : null, ['class' => 'form-control gst','id' => 'product_quantity','placeholder'=>'Gst'])}}
             </div>
         </div> 
  
@@ -104,21 +110,21 @@
             <div class="form-group">
                 {{ Form::label('Mrp', 'Mrp') }}
                 {{ Form::label('s', '*',['style'=>'color:red']) }}
-                {{ Form::number('product[mrp]',$product_Edit[0]['mrp'] ? $product_Edit[0]['mrp'] : null , ['class' => 'form-control mrp','id' => 'mrp','placeholder'=>'Mrp'])}}
+                {{ Form::number('productinformation[mrp]',$product_Edit[0]['mrp'] ? $product_Edit[0]['mrp'] : null , ['class' => 'form-control mrp','id' => 'mrp','placeholder'=>'Mrp'])}}
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
             {{ Form::label('Batch No', 'Batch No') }}
             {{ Form::label('s', '*',['style'=>'color:red']) }}
-            {{ Form::text('product[batch_no]',$product_Edit[0]['batch_no'] ? $product_Edit[0]['batch_no'] : null, ['class' => 'form-control batch_no','id' => 'batch_no','placeholder'=>'Batch No'])}}
+            {{ Form::text('productinformation[batch_no]',$product_Edit[0]['batch_no'] ? $product_Edit[0]['batch_no'] : null, ['class' => 'form-control pull-right','id' => 'datepicker','placeholder'=>'Batch No'])}}
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
             {{ Form::label('Weight', 'Weight') }}
             {{ Form::label('s', '*',['style'=>'color:red']) }}
-            {{ Form::number('product[weight]',$product_Edit[0]['weight'] ? $product_Edit[0]['weight'] : null, ['class' => 'form-control gst','id' => 'weight','placeholder'=>'Weight'])}}
+            {{ Form::number('productinformation[weight]',$product_Edit[0]['weight'] ? $product_Edit[0]['weight'] : null, ['class' => 'form-control gst','id' => 'weight','placeholder'=>'Weight'])}}
             </div>
         </div> 
     </div>
@@ -140,9 +146,14 @@
 <!-- Links -->
 @section('links')
 <link rel="stylesheet" href="{{asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
+
 @endsection
 @section('inline_scripts')
 <script>
+      $('#datepicker').datepicker({
+      autoclose: true
+    })
     function fetchData(){
         //timeout
         $(document).ready(function() {
@@ -150,7 +161,6 @@
             $(".flash-message").remove();
         }, 5000);
     });
-
         var select = document.getElementById('category').value;
         if(select == -1){
             document.getElementById("btnSubmit").disabled = true;
@@ -174,11 +184,14 @@ fetchData();
 <script>
     function setCategory(){
         var select = document.getElementById('category').value;
+        alert(select);
         if(select == -1){
             document.getElementById("btnSubmit").disabled = true;
         }
         document.getElementById("product_category").value = select;
-    }
-setCategory();
+}
 </script>
+@section('script')
+<script src="{{asset('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+@endsection
 @endsection

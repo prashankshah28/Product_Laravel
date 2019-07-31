@@ -16,7 +16,7 @@ class ProductInformation extends Model
     //get all data from filter
     public static function show($id){
         $product_show_data = ProductInformation::select()
-        ->with('product')
+        ->with('product.category')
         ->where('id', $id)
         ->get()
         ->toArray();
