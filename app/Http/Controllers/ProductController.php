@@ -18,8 +18,10 @@ class ProductController extends Controller
 
     public function fetchdata(Request $request){
         if ($request->ajax()) {             
-            if ($request->product_id != '' ) {
-                $product_data =Product::getDataFilter($request->product_id);
+            if ($request->category_id != '' ) {
+             //   $product_name = Product::where('category_id',$request->category_id)->pluck('name','id');
+                
+                $product_data =Product::getDataFilter($request->category_id);
             } 
             else{
                 $product_data = "No Data Found Please Insert";
@@ -34,9 +36,9 @@ class ProductController extends Controller
     */
 
     public function category(){
-        $category = Categoty::pluck('name','id')->toArray();
-        $category_id = 'null';
-        return view('Product/index')->with(compact('category','category_id'));
+        $category = Categoty::select('name','id')->get();
+ //       $category_id = 'null';
+        return view('Product/index')->with(compact('category'));
     }
 
     /**
@@ -94,9 +96,18 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        dd($id);
+        if ($request->ajax()) {
+            if ($request->product_id != '' ) {
+                $data[] = $product_Edit = ProductInformation::showProduct($request->product_id);
+                $category_id = $product_Edit[0]['product']['category_id'];
+                $batch_date = $product_Edit[0]['batch_no'];
+                $product_Edit[0]['batch_no'] = date('d-m-Y', strtotime($batch_date)); 
+                $category = Categoty::pluck('name','id')->toArray();
+            }
+            return view('Product/editAjax')->with(compact('product_Edit','category','category_id'))->render();        
+        }        
     }
 
     /**

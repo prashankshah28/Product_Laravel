@@ -39,5 +39,9 @@ class Product extends Model
         $product_update_data = ProductInformation::where('product_id', $id)->update($data['productinformation']);
         return true;
     }
+    //getProduct for get all product
+    // public static function getProduct($id){
+
+    // }
 
 }

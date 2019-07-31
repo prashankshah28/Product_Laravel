@@ -22,4 +22,13 @@ class ProductInformation extends Model
         ->toArray();
         return $product_show_data;
     }
+    public static function showProduct($id){
+        $product_show_data = ProductInformation::select()
+        ->with('product.category')
+        ->where('product_id', $id)
+        ->get()
+        ->toArray();
+        return $product_show_data;
+    }
+
 }
